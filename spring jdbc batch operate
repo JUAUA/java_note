@@ -1,0 +1,12 @@
+使用srping jdbc 提供的方法批量更新数据
+1\List<Object[]> rs = new ArrayList<>();//存值
+int i = 5;
+2\while(--i>0){
+			rs.add(new Object[]{1,2,3});//赋值
+	}
+3\template.batchUpdate("insert into table_name (seq_id,cid,fid) value (?,?,?)", rs);//插值
+
+使用场景
+相较于普通的insert,如果需要大量更新数据，在使用的jdbc driver支持batchUpdate的情况下,
+使用batchUpdate会比直接执行逐行执行update效率快一个数量级.
+但如果jdbc不支持batchUpdate,那么jdbcTemplate的batchUpdate在其内部仍然是逐行执行.
