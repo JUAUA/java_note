@@ -1,0 +1,19 @@
+1、GeneratedKeyHolder
+GeneratedKeyHolder是KeyHolder的一个通用实现类,用于返回新增记录时的自增长主键值.利用这一点，可以完成某些特定的需求:当你需要给多表关联关系的表中插入数据,
+首先你需要先对映射表所映射的表插入数据,然后拿到对应的自增长主键值,然后才能在映射表新增一条记录.
+
+实现过程:
+1\获取到KeyHolder的实例:KeyHolder keyHolder=new GeneratedKeyHolder();
+2\使用spring JDBC提供的方法
+template.update(new PreparedStatementCreator() {//通过回调获取JdbcTemplate提供的Connection,由用户使用该Conncetion创建相关的PreparedStatement;
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement ps = con.prepareStatement(INSERT_COMBO_SQL, Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, cname);
+				ps.setDate(2, new Date(Calendar.getInstance().getTimeInMillis()));
+				return ps;
+			}
+		},keyHolder);
+		int seq_id = keyHolder.getKey().intValue();
+    
+附一个整理的不错的博客链接(作者:Jlins):https://blog.csdn.net/dyllove98/article/details/7772463
