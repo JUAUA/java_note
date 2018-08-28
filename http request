@@ -1,0 +1,23 @@
+最近经常需要对接别人的接口，总结一下过程中使用到的方法
+
+1、使用原生的http请求
+第一步：定义参数
+List<NameValuePair> loginlist = new ArrayList<NameValuePair>();
+loginlist.add(new BasicNameValuePair("username", SK_ACCOUNT));
+loginlist.add(new BasicNameValuePair("password", SK_PASSWORD));
+loginlist.add(new BasicNameValuePair("code", code.getData()));
+return sklogin = ss.login(loginlist);
+
+第二步：发起请求
+将发送http请求的方法封装起来了，使用时只需要传递一下参数，选择一下模式即可，附上代码如下
+
+@Override
+public LoginRsp login(List<NameValuePair> list) {
+  HttpReqGeneralWay way = HttpReqGeneralWay.getInstance();//获取实例
+  way.getHttpClient(1);//选择httpclient模式 1=获取跳过https签名证书的httpclient;0=普通
+  LoginRsp rsp = way.postWay(MAIN_URL+LOGIN_URL, list, LoginRsp.class);//调用post请求的方式,第一个参数填入需要请求的地址；第二个参数即该请求地址需要的参数,第三个参数填写需要返回的结果类型
+  return rsp;
+}
+上面是一个登入的实现，只需要传递参数list即可；
+
+2、另一种方法使用了Android常用的Retrofit(之后再更新)
