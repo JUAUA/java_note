@@ -1,0 +1,2 @@
+在使用dubbo调用其它服务接口返回数据时，用了List<Map<String,Object>> 类型返回一直出问题，在网上查找问题，找到一篇解决了我问题的博客，特此记录一下。
+https://blog.csdn.net/Alice_qixin/article/details/79462155
