@@ -1,2 +1,9 @@
 在使用dubbo调用其它服务接口返回数据时，用了List<Map<String,Object>> 类型返回一直出问题，在网上查找问题，找到一篇解决了我问题的博客，特此记录一下。
-https://blog.csdn.net/Alice_qixin/article/details/79462155
+原文：https://blog.csdn.net/Alice_qixin/article/details/79462155
+
+可返回的类型
+
+1.基本数据类型
+2.实体(需实现序列化)
+3.List<T>,T需为基本类型
+4.Map<K,V>，V需为基本类型
